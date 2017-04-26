@@ -29,22 +29,6 @@ public class HTTPRequestHandler extends Thread {
     private void handleRequest(Socket client) {
         System.out.println(String.format("INFO : HTTPRequestHandler [%s] handle client [%s]", getId(), client));
         System.out.flush();
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            String input = in.readLine();
-            System.out.println("INFO : " + input);
-            PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-            out.println(input);
-            in.close();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                client.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        //TODO handle request
     }
 }
