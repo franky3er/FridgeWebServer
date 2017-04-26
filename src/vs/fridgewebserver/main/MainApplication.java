@@ -27,18 +27,23 @@ public class MainApplication {
         } catch (IOException e) {
             System.err.println("ERROR : Initialization failed");
             e.printStackTrace();
+            System.out.flush();
         }
     }
 
     private static void loadConfig() {
+        port = 8080;
+        numberOfWorkers = 4;
     }
 
     private static void run() {
+        System.out.println("INFO : Running");
         runWorkers();
         runBoss();
     }
 
     private static void initialize() throws IOException {
+        System.out.println("INFO : Initializing");
         initializeWorkers();
         initializeBoss();
     }
@@ -56,7 +61,7 @@ public class MainApplication {
 
     private static void runWorkers(){
         for(HTTPRequestHandler worker : workers) {
-            worker.run();
+            worker.start();
         }
     }
 

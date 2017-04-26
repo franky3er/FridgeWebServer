@@ -21,13 +21,19 @@ public class HTTPServer {
     }
 
     public void run() {
+        System.out.println("INFO : HTTPServer running");
+        System.out.flush();
         while(true) {
             try {
-                clients.put(this.server.accept());
+                Socket client = this.server.accept();
+                clients.put(client);
+                System.out.println(String.format("INFO : New Client [%s] connection put to Queue", client));
+                System.out.flush();
             } catch (InterruptedException e) {
             } catch (IOException e) {
                 System.err.println("ERROR : server.accept() failed");
                 e.printStackTrace();
+                System.out.flush();
             }
         }
     }
