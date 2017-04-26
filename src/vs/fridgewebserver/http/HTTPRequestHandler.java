@@ -2,14 +2,15 @@ package vs.fridgewebserver.http;
 
 import java.net.Socket;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by franky3er on 25.04.17.
  */
 public class HTTPRequestHandler extends Thread {
-    private Queue<Socket> clients;
+    private BlockingQueue<Socket> clients;
 
-    public HTTPRequestHandler(Queue<Socket> clients) {
+    public HTTPRequestHandler(BlockingQueue<Socket> clients) {
         this.clients = clients;
     }
 
@@ -23,7 +24,11 @@ public class HTTPRequestHandler extends Thread {
                     e.printStackTrace();
                 }
             }
-            handle(clients.remove());
+            try {
+                handle(clients.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
