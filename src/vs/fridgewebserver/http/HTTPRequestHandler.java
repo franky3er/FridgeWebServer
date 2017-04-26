@@ -16,18 +16,10 @@ public class HTTPRequestHandler extends Thread {
 
     @Override
     public void run() {
-        while(true) {
-            while(clients.isEmpty()){
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+        while (true) {
             try {
                 handle(clients.take());
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }
