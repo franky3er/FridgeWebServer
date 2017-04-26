@@ -16,20 +16,20 @@ public class ProductFactory {
     public static Product build(String productName) {
         System.out.println(String.format("INFO : Create new Product out of product name: %s", productName));
         Product product = null;
-        switch (productName){
-            case (Beer.PRODUCT_NAME) : {
+        switch (productName) {
+            case (Beer.PRODUCT_NAME): {
                 product = new Beer();
                 break;
             }
-            case (Butter.PRODUCT_NAME) : {
+            case (Butter.PRODUCT_NAME): {
                 product = new Butter();
                 break;
             }
-            case (Eggs.PRODUCT_NAME) : {
+            case (Eggs.PRODUCT_NAME): {
                 product = new Eggs();
                 break;
             }
-            case (Milk.PRODUCT_NAME) : {
+            case (Milk.PRODUCT_NAME): {
                 product = new Milk();
                 break;
             }

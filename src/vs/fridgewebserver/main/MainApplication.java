@@ -14,12 +14,13 @@ import java.util.concurrent.BlockingQueue;
 public class MainApplication {
     private static List<HTTPClientHandler> workers;
     private static HTTPServer boss;
-    private static BlockingQueue<Socket> clients = new ArrayBlockingQueue<Socket>(1024);;
+    private static BlockingQueue<Socket> clients = new ArrayBlockingQueue<Socket>(1024);
+    ;
 
     private static int numberOfWorkers;
     private static int port;
 
-    public static void main(String []args){
+    public static void main(String[] args) {
         try {
             loadConfig();
             initialize();
@@ -54,13 +55,13 @@ public class MainApplication {
 
     private static void initializeWorkers() {
         workers = new ArrayList<>();
-        for(int i = 0; i < numberOfWorkers; i++) {
+        for (int i = 0; i < numberOfWorkers; i++) {
             workers.add(new HTTPClientHandler(clients));
         }
     }
 
-    private static void runWorkers(){
-        for(HTTPClientHandler worker : workers) {
+    private static void runWorkers() {
+        for (HTTPClientHandler worker : workers) {
             worker.start();
         }
     }

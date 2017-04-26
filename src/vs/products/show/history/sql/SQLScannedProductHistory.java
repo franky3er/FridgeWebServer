@@ -20,9 +20,9 @@ public class SQLScannedProductHistory implements ScannedProductHistory {
     @Override
     public List<ScannedProduct> getTimeStampSortedScannedProducts(String productName) {
         String sql = String.format("SELECT %s, %s, %s, %s " +
-                "FROM %s INNER JOIN %S ON %s=%s " +
-                "WHERE %s='%s' " +
-                "ORDER BY %s ASC; ",
+                        "FROM %s INNER JOIN %S ON %s=%s " +
+                        "WHERE %s='%s' " +
+                        "ORDER BY %s ASC; ",
                 ProductDatabaseHandler.PRODUCT_TABLE_PK_PRODUCTNAME_COMPLETE, ProductDatabaseHandler.SCANNEDPRODUCT_TABLE_AMMOUNT_COMPLETE,
                 ProductDatabaseHandler.PRODUCT_TABLE_PRODUCTUNIT_COMPLETE, ProductDatabaseHandler.SCANNEDPRODUCT_TABLE_PK_TIMESTAMP_COMPLETE,
                 ProductDatabaseHandler.PRODUCT_TABLE, ProductDatabaseHandler.SCANNEDPRODUCT_TABLE,
@@ -35,12 +35,12 @@ public class SQLScannedProductHistory implements ScannedProductHistory {
     @Override
     public void printTimeStampSortedScannedProducts(String productName) {
         List<ScannedProduct> scannedProducts = this.getTimeStampSortedScannedProducts(productName);
-        if(scannedProducts.isEmpty()) {
+        if (scannedProducts.isEmpty()) {
             System.out.println(String.format("Not entries for product name: %s", productName));
             return;
         }
 
-        for(ScannedProduct scannedProduct : scannedProducts) {
+        for (ScannedProduct scannedProduct : scannedProducts) {
             HumanReadableScannedProduct humanReadableScannedProduct =
                     new HumanReadableScannedProduct(scannedProduct);
             System.out.println(humanReadableScannedProduct.getHumanReadableProductState());

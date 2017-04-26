@@ -44,15 +44,17 @@ public abstract class ProductDatabaseHandler implements ProductIOHandler {
     }
 
     public abstract void write(ScannedProduct scannedProduct);
+
     public abstract List<ScannedProduct> read(String statement);
+
     public abstract void connect();
 
     /**
      * Checks if the there is a running connection to the db
      *
      * @return boolean
-     *      true --> connected
-     *      false --> not connected
+     * true --> connected
+     * false --> not connected
      */
     public boolean isConnected() {
         try {
@@ -68,18 +70,18 @@ public abstract class ProductDatabaseHandler implements ProductIOHandler {
     public void createTablesIfNotExist() {
         System.out.println("INFO : Create necessary tables if not existing");
         String sql = String.format("CREATE TABLE IF NOT EXISTS %s (" +
-                "%s VARCHAR(100), " +
-                "%s VARCHAR(100), " +
-                "PRIMARY KEY (%s)); ", PRODUCT_TABLE,
+                        "%s VARCHAR(100), " +
+                        "%s VARCHAR(100), " +
+                        "PRIMARY KEY (%s)); ", PRODUCT_TABLE,
                 PRODUCT_TABLE_PK_PRODUCTNAME,
                 PRODUCT_TABLE_PRODUCTUNIT,
                 PRODUCT_TABLE_PK_PRODUCTNAME);
         sql += String.format("CREATE TABLE IF NOT EXISTS %s (" +
-                "%s VARCHAR(100), " +
-                "%s DATETIME, " +
-                "%s VARCHAR(100), " +
-                "PRIMARY KEY (%s, %s), " +
-                "FOREIGN KEY (%s) REFERENCES %s(%s)); ", SCANNEDPRODUCT_TABLE,
+                        "%s VARCHAR(100), " +
+                        "%s DATETIME, " +
+                        "%s VARCHAR(100), " +
+                        "PRIMARY KEY (%s, %s), " +
+                        "FOREIGN KEY (%s) REFERENCES %s(%s)); ", SCANNEDPRODUCT_TABLE,
                 SCANNEDPRODUCT_TABLE_PK_FK_PRODUCTNAME,
                 SCANNEDPRODUCT_TABLE_PK_TIMESTAMP,
                 SCANNEDPRODUCT_TABLE_AMMOUNT,
@@ -96,9 +98,9 @@ public abstract class ProductDatabaseHandler implements ProductIOHandler {
 
     protected void executeStatements(String statements) throws SQLException {
         Statement statement = this.connection.createStatement();
-        String []sqlStatements = statements.split(";");
-        for(String sqlStatement : sqlStatements) {
-            if( !sqlStatement.trim().isEmpty() ) {
+        String[] sqlStatements = statements.split(";");
+        for (String sqlStatement : sqlStatements) {
+            if (!sqlStatement.trim().isEmpty()) {
                 sqlStatement = sqlStatement.trim();
                 sqlStatement += ";";
                 System.out.println(String.format("INFO : Execute Statement: %s", sqlStatement));

@@ -5,7 +5,7 @@ import vs.fridgewebserver.http.request.HTTPRequestMethod;
 /**
  * Created by franky3er on 26.04.17.
  */
-public class HTTPMethodNotImplementedException extends HTTPRequestException{
+public class HTTPMethodNotImplementedException extends HTTPRequestException {
     public HTTPMethodNotImplementedException(HTTPRequestMethod method) {
         super(String.format("501 : Method not implemented - Method %s not implemented", method.name()));
         super.setStatusCode(501);

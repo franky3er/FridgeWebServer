@@ -24,7 +24,7 @@ public class HTTPServer {
     public void run() {
         System.out.println(String.format("INFO : %s running", this.getClass().getSimpleName()));
         System.out.flush();
-        while(true) {
+        while (true) {
             try {
                 Socket client = this.server.accept();
                 clients.put(client);

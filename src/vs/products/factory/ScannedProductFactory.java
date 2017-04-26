@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 
 /**
- *This factory creates concrete ScannedProducts
+ * This factory creates concrete ScannedProducts
  */
 public class ScannedProductFactory {
 
@@ -19,12 +19,12 @@ public class ScannedProductFactory {
      * @param scannedProductState
      * @return ScannedProduct
      */
-    public static ScannedProduct build(String scannedProductState){
+    public static ScannedProduct build(String scannedProductState) {
         System.out.println(String.format("INFO : Create new ScannedProduct out of state: %s", scannedProductState));
         ScannedProduct scannedProduct = null;
-        String []scannedProdutStateDetails = scannedProductState.split(";");
+        String[] scannedProdutStateDetails = scannedProductState.split(";");
         scannedProduct = new ScannedProduct(ProductFactory.build(scannedProdutStateDetails[0]));
-        if(scannedProduct != null) {
+        if (scannedProduct != null) {
             scannedProduct.setAmmount(scannedProdutStateDetails[1]);
             try {
                 scannedProduct.setTimeStamp(

@@ -58,7 +58,7 @@ public class HTTPRequest {
     }
 
     public void setMethod(HTTPRequestMethod method) throws HTTPMethodNotImplementedException {
-        switch(method){
+        switch (method) {
             case GET: {
                 this.method = method;
                 break;
@@ -70,7 +70,7 @@ public class HTTPRequest {
 
     }
 
-    public void setMethod(String methodString) throws HTTPRequestException{
+    public void setMethod(String methodString) throws HTTPRequestException {
         try {
             HTTPRequestMethod method = HTTPRequestMethod.valueOf(methodString);
             setMethod(method);

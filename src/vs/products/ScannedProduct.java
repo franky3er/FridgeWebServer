@@ -4,53 +4,53 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ScannedProduct implements Product {
-	public final static SimpleDateFormat SCANNED_PRODUCT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
-	private Product product;
-	private Date timeStamp;
+    public final static SimpleDateFormat SCANNED_PRODUCT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public ScannedProduct(Product product) {
-		this.setProduct(product);
-	}
-	
-	@Override
-	public String getName() {
-		return this.getProduct().getName();
-	}
+    private Product product;
+    private Date timeStamp;
 
-	@Override
-	public String getUnit() {
-		return this.getProduct().getUnit();
-	}
+    public ScannedProduct(Product product) {
+        this.setProduct(product);
+    }
 
-	@Override
-	public String getStateAsString() {
-		return String.format("%s;%s", this.getProduct().getStateAsString(), SCANNED_PRODUCT_DATE_FORMAT.format(this.timeStamp));
-	}
+    @Override
+    public String getName() {
+        return this.getProduct().getName();
+    }
 
-	public Date getTimeStamp() {
-		return timeStamp;
-	}
+    @Override
+    public String getUnit() {
+        return this.getProduct().getUnit();
+    }
 
-	public void setTimeStamp(Date timeStamp) {
-		this.timeStamp = timeStamp;
-	}
+    @Override
+    public String getStateAsString() {
+        return String.format("%s;%s", this.getProduct().getStateAsString(), SCANNED_PRODUCT_DATE_FORMAT.format(this.timeStamp));
+    }
 
-	@Override
-	public void setAmmount(String ammount) {
-		this.getProduct().setAmmount(ammount);
-	}
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
 
-	@Override
-	public String getAmmount() {
-		return this.product.getAmmount();
-	}
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    @Override
+    public void setAmmount(String ammount) {
+        this.getProduct().setAmmount(ammount);
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    @Override
+    public String getAmmount() {
+        return this.product.getAmmount();
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }
