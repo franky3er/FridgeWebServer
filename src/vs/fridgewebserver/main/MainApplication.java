@@ -1,6 +1,6 @@
 package vs.fridgewebserver.main;
 
-import vs.fridgewebserver.http.HTTPRequestHandler;
+import vs.fridgewebserver.http.HTTPClientHandler;
 import vs.fridgewebserver.http.HTTPServer;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 
 
 public class MainApplication {
-    private static List<HTTPRequestHandler> workers;
+    private static List<HTTPClientHandler> workers;
     private static HTTPServer boss;
     private static BlockingQueue<Socket> clients = new ArrayBlockingQueue<Socket>(1024);;
 
@@ -55,12 +55,12 @@ public class MainApplication {
     private static void initializeWorkers() {
         workers = new ArrayList<>();
         for(int i = 0; i < numberOfWorkers; i++) {
-            workers.add(new HTTPRequestHandler(clients));
+            workers.add(new HTTPClientHandler(clients));
         }
     }
 
     private static void runWorkers(){
-        for(HTTPRequestHandler worker : workers) {
+        for(HTTPClientHandler worker : workers) {
             worker.start();
         }
     }

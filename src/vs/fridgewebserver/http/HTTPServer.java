@@ -17,11 +17,12 @@ public class HTTPServer {
 
     public HTTPServer(int port, BlockingQueue<Socket> clients) throws IOException {
         this.server = new ServerSocket(port);
+        this.server.setReuseAddress(true);
         this.clients = clients;
     }
 
     public void run() {
-        System.out.println("INFO : HTTPServer running");
+        System.out.println(String.format("INFO : %s running", this.getClass().getSimpleName()));
         System.out.flush();
         while(true) {
             try {
