@@ -1,5 +1,8 @@
 package vs.fridgewebserver.http;
 
+import vs.fridgewebserver.http.exception.HTTPRequestException;
+import vs.fridgewebserver.http.request.HTTPRequest;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
@@ -29,6 +32,15 @@ public class HTTPClientHandler extends Thread {
     private void handleRequest(Socket client) {
         System.out.println(String.format("INFO : %s [%s] handle client [%s]", this.getClass().getSimpleName(), getId(), client));
         System.out.flush();
-        //TODO handle request
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            HTTPRequest httpRequest = new HTTPRequest();
+            httpRequest.parseRequest(in);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (HTTPRequestException e) {
+            e.printStackTrace();
+        }
     }
 }
