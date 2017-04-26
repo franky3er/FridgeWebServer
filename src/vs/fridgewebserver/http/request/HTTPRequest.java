@@ -45,6 +45,32 @@ public class HTTPRequest {
             throw new HTTPBadRequestException("Empty Request");
         }
         parseRequestLine(httpRequest.get(0));
+        httpRequest.remove(0);
+        //TODO implement rest parsing
+        parseMethod(httpRequest);
+    }
+
+    private void parseMethod(List<String> httpRequest) throws HTTPRequestException {
+        switch (method) {
+            case GET: {
+                parseGET(httpRequest);
+            }
+        }
+    }
+
+    private void parseGET(List<String> httpRequest) throws HTTPRequestException {
+        String[] uriElements = this.getURI().split("\\?"); //We are only looking for params
+        //TODO implement...
+        if (uriElements.length == 2) {
+            String[] params = uriElements[1].split("&");
+            for (String param : params) {
+                String[] paramPair = param.split("=");
+                if (paramPair.length != 2) {
+                    throw new HTTPBadRequestException("Invalid Parameter");
+                }
+                this.params.put(paramPair[0], paramPair[1]);
+            }
+        }
     }
 
     private void parseRequestLine(String requestLine) throws HTTPRequestException {
