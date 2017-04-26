@@ -1,7 +1,6 @@
 package vs.fridgewebserver.http;
 
 import java.net.Socket;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 /**
