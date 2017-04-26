@@ -49,8 +49,12 @@ public class HTTPRequest {
 
     private void parseRequestLine(String requestLine) throws HTTPRequestException {
         String[] requestLineElements = requestLine.split(" ");
+        if (requestLineElements.length != 3) {
+            throw new HTTPBadRequestException("Invalid Request");
+        }
         setMethod(requestLineElements[0]);
-
+        setURI(requestLineElements[1]);
+        setVersion(requestLineElements[2]);
     }
 
     public HTTPRequestMethod getMethod() {
