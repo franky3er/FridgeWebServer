@@ -3,9 +3,15 @@ package vs.fridgewebserver.http.request.parser;
 import vs.fridgewebserver.http.request.HTTPRequestMethod;
 
 /**
- * Created by franky3er on 27.04.17.
+ * This factory builds concrete HTTPRequestParser
  */
 public class HTTPRequestParserFactory {
+    /**
+     * Builds a conctrete HTTPRequestParser from the given method type
+     *
+     * @param method
+     * @return HTTPRequestParser
+     */
     public static HTTPRequestParser build(HTTPRequestMethod method) {
         switch(method) {
             case GET: {

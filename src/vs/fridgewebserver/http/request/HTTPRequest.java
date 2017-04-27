@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by franky3er on 25.04.17.
+ * Pojo for an HTTPRequest
  */
 public class HTTPRequest {
     private List<String> httpRequest;
@@ -24,11 +24,18 @@ public class HTTPRequest {
     private String URI;
     private String host;
     private String userAgent;
+    private String connection;
 
     public HTTPRequest() {
         params = new HashMap<>();
     }
 
+    /**
+     * Parses the http request from the given BufferedReader object.
+     *
+     * @param httpRequest
+     * @throws HTTPRequestException
+     */
     public void parseRequest(BufferedReader httpRequest) throws HTTPRequestException {
         String line;
         List<String> lines = new ArrayList<>();
@@ -44,6 +51,12 @@ public class HTTPRequest {
         }
     }
 
+    /**
+     * Parses the http request from the given String List object.
+     *
+     * @param httpRequest
+     * @throws HTTPRequestException
+     */
     public void parseRequest(List<String> httpRequest) throws HTTPRequestException {
         if (httpRequest.isEmpty()) {
             throw new HTTPBadRequestException("Empty Request");
@@ -54,6 +67,12 @@ public class HTTPRequest {
         requestParser.parse(this);
     }
 
+    /**
+     * Parses the first Line of the http request and extracts method, uri, and http version.
+     *
+     * @param requestLine
+     * @throws HTTPRequestException
+     */
     private void parseRequestLine(String requestLine) throws HTTPRequestException {
         String[] requestLineElements = requestLine.split(" ");
         if (requestLineElements.length != 3) {
@@ -123,5 +142,13 @@ public class HTTPRequest {
 
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
+    }
+
+    public String getConnection() {
+        return connection;
+    }
+
+    public void setConnection(String connection) {
+        this.connection = connection;
     }
 }

@@ -5,10 +5,12 @@ import vs.fridgewebserver.http.request.HTTPRequest;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Created by franky3er on 25.04.17.
+ * This class works as a thread and handles incoming http requests which are saved from a ServerSocket in a
+ * BlockingQueue of clients. This BlockingQueue is thread safe.
  */
 public class HTTPClientHandler extends Thread {
     private BlockingQueue<Socket> clients;
@@ -29,12 +31,18 @@ public class HTTPClientHandler extends Thread {
         }
     }
 
+    /**
+     * Handles the from the server socket accepted client, parse the http request and sends the client a http response back.
+     *
+     * @param client
+     */
     private void handleRequest(Socket client) {
         System.out.println(String.format("INFO : %s [%s] handle client [%s]", this.getClass().getSimpleName(), getId(), client));
         System.out.flush();
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             HTTPRequest httpRequest = new HTTPRequest();
+            System.out.println(String.format("INFO : %s [%s] parse request of client [%s]", this.getClass().getSimpleName(), getId(), client));
             httpRequest.parseRequest(in);
             in.close();
         } catch (IOException e) {

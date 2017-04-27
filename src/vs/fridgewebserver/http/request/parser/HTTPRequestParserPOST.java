@@ -5,7 +5,7 @@ import vs.fridgewebserver.http.request.HTTPRequest;
 import vs.fridgewebserver.http.request.HTTPRequestMethod;
 
 /**
- * Created by franky3er on 27.04.17.
+ * Concrete implementation to parse a POST HTTP request
  */
 public class HTTPRequestParserPOST extends HTTPRequestParser {
     @Override

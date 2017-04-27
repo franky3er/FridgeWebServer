@@ -6,7 +6,7 @@ import vs.fridgewebserver.http.request.HTTPRequest;
 import vs.fridgewebserver.http.request.HTTPRequestMethod;
 
 /**
- * Created by franky3er on 27.04.17.
+ * Concrete implementation to parse a OPTIONS HTTP request
  */
 public class HTTPRequestParserOPTIONS extends HTTPRequestParser{
     @Override

@@ -5,7 +5,7 @@ import vs.fridgewebserver.http.exception.HTTPRequestException;
 import vs.fridgewebserver.http.request.HTTPRequest;
 
 /**
- * Created by franky3er on 27.04.17.
+ * Concrete implementation to parse a GET HTTP request
  */
 public class HTTPRequestParserGET extends HTTPRequestParser {
 
@@ -15,9 +15,13 @@ public class HTTPRequestParserGET extends HTTPRequestParser {
         extractParams();
     }
 
+    /**
+     * Extracts the parameter out of the URI.
+     *
+     * @throws HTTPRequestException
+     */
     private void extractParams() throws HTTPRequestException {
         String[] uriElements = this.httpRequest.getURI().split("\\?"); //We are only looking for params
-        //TODO implement...
         if (uriElements.length == 2) {
             String[] params = uriElements[1].split("&");
             for (String param : params) {
@@ -26,6 +30,12 @@ public class HTTPRequestParserGET extends HTTPRequestParser {
         }
     }
 
+    /**
+     * Extract the parameter out of a key-value pair string.
+     *
+     * @param param
+     * @throws HTTPRequestException
+     */
     private void extractParam(String param) throws HTTPRequestException {
         String[] paramPair = param.split("=");
         if (paramPair.length != 2) {
