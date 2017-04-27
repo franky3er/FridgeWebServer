@@ -6,10 +6,7 @@ import vs.fridgewebserver.http.request.HTTPRequest;
 import vs.fridgewebserver.http.response.HTTPResponse;
 import vs.products.ScannedProduct;
 import vs.products.iohandler.ProductIOHandler;
-import vs.products.iohandler.database.ProductDatabaseHandler;
 import vs.products.iohandler.wrapper.ProductHistoryHandler;
-import vs.products.show.history.ScannedProductHistory;
-import vs.products.show.history.html.HTMLScannedProductHistory;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class HandlerOptionShowProductHistory implements HandlerOption {
     @Override
     public HTTPResponse handle(HTTPRequest httpRequest) throws HTTPRequestException {
         String productName = httpRequest.getParams().get("product");
-        if(productName == null || productName.isEmpty()) {
+        if (productName == null || productName.isEmpty()) {
             throw new HTTPBadRequestException("Invalid Parameter - must contain product");
         }
         ProductHistoryHandler productHistoryHandler = new ProductHistoryHandler(this.productIOHandler);
@@ -56,7 +53,7 @@ public class HandlerOptionShowProductHistory implements HandlerOption {
     }
 
     private String getProductHistoryInHTML(List<ScannedProduct> scannedProducts) {
-        if(scannedProducts.isEmpty()) {
+        if (scannedProducts.isEmpty()) {
             return "\n<h3>Product History: </h3>\n" +
                     "\t<p>No Product found with this name.</p>\n";
         }
@@ -68,7 +65,7 @@ public class HandlerOptionShowProductHistory implements HandlerOption {
         html += "\t\t<th>Ammount</th>\n";
         html += "\t\t<th>Unit</th>\n";
 
-        for(ScannedProduct scannedProduct : scannedProducts) {
+        for (ScannedProduct scannedProduct : scannedProducts) {
             html += "\t<tr>\n";
 
             html += "\t\t<td>" + ScannedProduct.SCANNED_PRODUCT_DATE_FORMAT.format(scannedProduct.getTimeStamp()) + "</td>\n";
