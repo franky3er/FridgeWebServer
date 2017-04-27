@@ -1,7 +1,7 @@
 package vs.fridgewebserver.http.response;
 
 /**
- * Created by franky3er on 25.04.17.
+ * Pojo for a HTTPResponse
  */
 public class HTTPResponse {
     private int statusCode;
