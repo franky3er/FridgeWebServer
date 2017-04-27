@@ -10,6 +10,11 @@ public class HTTPResponse {
     private String contentType;
     private String messageBody;
 
+    /**
+     * Returns the HTTPResponse as a String.
+     *
+     * @return
+     */
     public String getHttpResponse() {
         return String.format("%s %d %s\r\n" +
                         "Content-type: %s\r\n" +
