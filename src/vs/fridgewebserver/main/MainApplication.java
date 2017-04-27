@@ -1,6 +1,6 @@
 package vs.fridgewebserver.main;
 
-import vs.fridgewebserver.http.HTTPClientHandler;
+import vs.fridgewebserver.http.handler.HTTPClientHandler;
 import vs.fridgewebserver.http.HTTPServer;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package vs.fridgewebserver.http;
+package vs.fridgewebserver.http.handler;
 
 import vs.fridgewebserver.http.exception.HTTPBadRequestException;
 import vs.fridgewebserver.http.exception.HTTPMethodNotImplementedException;

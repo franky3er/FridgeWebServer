@@ -1,6 +1,5 @@
-package vs.products.show.history.sql;
+package vs.products.show.history.html;
 
-import vs.products.HumanReadableScannedProduct;
 import vs.products.ScannedProduct;
 import vs.products.iohandler.database.ProductDatabaseHandler;
 import vs.products.show.history.ScannedProductHistory;
@@ -8,12 +7,12 @@ import vs.products.show.history.ScannedProductHistory;
 import java.util.List;
 
 /**
- * Created by franky3er on 18.04.17.
+ * Created by Frank on 27.04.2017.
  */
-public class SQLScannedProductHistory implements ScannedProductHistory {
+public class HTMLScannedProductHistory implements ScannedProductHistory {
     private ProductDatabaseHandler databaseHandler;
 
-    public SQLScannedProductHistory(ProductDatabaseHandler databaseHandler) {
+    public HTMLScannedProductHistory(ProductDatabaseHandler databaseHandler) {
         this.databaseHandler = databaseHandler;
     }
 
@@ -34,21 +33,37 @@ public class SQLScannedProductHistory implements ScannedProductHistory {
 
     @Override
     public String getTimeStampSortedScannedProductsAsString(String productName) {
-        List<ScannedProduct> scannedProducts = this.getTimeStampSortedScannedProducts(productName);
-        if (scannedProducts.isEmpty()) {
-            return null;
+        List<ScannedProduct> scannedProducts = getTimeStampSortedScannedProducts(productName);
+        if(scannedProducts.isEmpty()) {
+            return "\n<h3>Product History: </h3>\n" +
+                    "\t<p>No Product found with this name.</p>\n";
         }
-        String productHistory = "";
-        for (ScannedProduct scannedProduct : scannedProducts) {
-            HumanReadableScannedProduct humanReadableScannedProduct =
-                    new HumanReadableScannedProduct(scannedProduct);
-            productHistory += String.format("%s\n", humanReadableScannedProduct.getHumanReadableProductState());
+
+        String html = "<table>\n";
+        html += "\t<tr>\n";
+        html += "\t\t<th>Time Stamp</th>\n";
+        html += "\t\t<th>Product</th>\n";
+        html += "\t\t<th>Ammount</th>\n";
+        html += "\t\t<th>Unit</th>\n";
+
+        for(ScannedProduct scannedProduct : scannedProducts) {
+            html += "\t<tr>\n";
+
+            html += "\t\t<td>" + ScannedProduct.SCANNED_PRODUCT_DATE_FORMAT.format(scannedProduct.getTimeStamp()) + "</td>\n";
+            html += "\t\t<td>" + scannedProduct.getName() + "</td>\n";
+            html += "\t\t<td>" + scannedProduct.getAmmount() + "</td>\n";
+            html += "\t\t<td>" + scannedProduct.getUnit() + "</td>\n";
+
+            html += "\t</tr>\n";
         }
-        return productHistory;
+
+        html += "</table>";
+
+        return html;
     }
 
     @Override
     public void printTimeStampSortedScannedProducts(String productName) {
-        System.out.println(this.getTimeStampSortedScannedProductsAsString(productName));
+       System.out.println(this.getTimeStampSortedScannedProductsAsString(productName));
     }
 }

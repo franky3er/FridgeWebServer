@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface ScannedProductHistory {
     List<ScannedProduct> getTimeStampSortedScannedProducts(String productName);
-
+    String getTimeStampSortedScannedProductsAsString(String productName);
     void printTimeStampSortedScannedProducts(String productName);
 }
