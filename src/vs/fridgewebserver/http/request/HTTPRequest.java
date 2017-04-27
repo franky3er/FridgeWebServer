@@ -3,6 +3,8 @@ package vs.fridgewebserver.http.request;
 import vs.fridgewebserver.http.exception.HTTPBadRequestException;
 import vs.fridgewebserver.http.exception.HTTPMethodNotImplementedException;
 import vs.fridgewebserver.http.exception.HTTPRequestException;
+import vs.fridgewebserver.http.request.parser.HTTPRequestParser;
+import vs.fridgewebserver.http.request.parser.HTTPRequestParserFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,31 +48,8 @@ public class HTTPRequest {
         }
         parseRequestLine(httpRequest.get(0));
         httpRequest.remove(0);
-        //TODO implement rest parsing
-        parseMethod(httpRequest);
-    }
-
-    private void parseMethod(List<String> httpRequest) throws HTTPRequestException {
-        switch (method) {
-            case GET: {
-                parseGET(httpRequest);
-            }
-        }
-    }
-
-    private void parseGET(List<String> httpRequest) throws HTTPRequestException {
-        String[] uriElements = this.getURI().split("\\?"); //We are only looking for params
-        //TODO implement...
-        if (uriElements.length == 2) {
-            String[] params = uriElements[1].split("&");
-            for (String param : params) {
-                String[] paramPair = param.split("=");
-                if (paramPair.length != 2) {
-                    throw new HTTPBadRequestException("Invalid Parameter");
-                }
-                this.params.put(paramPair[0], paramPair[1]);
-            }
-        }
+        HTTPRequestParser requestParser = HTTPRequestParserFactory.build(getMethod());
+        requestParser.parse(this);
     }
 
     private void parseRequestLine(String requestLine) throws HTTPRequestException {
@@ -88,16 +67,7 @@ public class HTTPRequest {
     }
 
     public void setMethod(HTTPRequestMethod method) throws HTTPMethodNotImplementedException {
-        switch (method) {
-            case GET: {
-                this.method = method;
-                break;
-            }
-            default: {
-                throw new HTTPMethodNotImplementedException(method);
-            }
-        }
-
+        this.method = method;
     }
 
     public void setMethod(String methodString) throws HTTPRequestException {
