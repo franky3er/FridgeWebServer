@@ -1,5 +1,7 @@
 package vs.fridgewebserver.http;
 
+import vs.fridgewebserver.http.exception.HTTPBadRequestException;
+import vs.fridgewebserver.http.exception.HTTPMethodNotImplementedException;
 import vs.fridgewebserver.http.exception.HTTPRequestException;
 import vs.fridgewebserver.http.request.HTTPRequest;
 import vs.fridgewebserver.http.response.HTTPResponse;
@@ -40,8 +42,9 @@ public class HTTPClientHandler extends Thread {
     private void handleRequest(Socket client) {
         System.out.println(String.format("INFO : %s [%s] handle client [%s]", this.getClass().getSimpleName(), getId(), client));
         System.out.flush();
+        BufferedReader in = null;
         try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             HTTPRequest httpRequest = new HTTPRequest();
             System.out.println(String.format("INFO : %s [%s] parse request of client [%s]", this.getClass().getSimpleName(), getId(), client));
             httpRequest.parseRequest(in);
