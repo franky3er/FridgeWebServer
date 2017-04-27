@@ -8,7 +8,7 @@ import vs.products.iohandler.ProductIOHandler;
  * Factory to build a HandlerOption from the specified optionName
  */
 public class HandlerOptionFactory {
-    public HandlerOption build(String optionName, ProductIOHandler productIOHandler) throws HTTPRequestException {
+    public static HandlerOption build(String optionName, ProductIOHandler productIOHandler) throws HTTPRequestException {
         switch (optionName) {
             case ("history"): {
                 return new HandlerOptionShowProductHistory(productIOHandler);
