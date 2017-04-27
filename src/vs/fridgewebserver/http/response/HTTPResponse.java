@@ -1,7 +1,7 @@
 package vs.fridgewebserver.http.response;
 
 /**
- * Created by franky3er on 25.04.17.
+ * Pojo for a HTTPResponse
  */
 public class HTTPResponse {
     private int statusCode;
@@ -10,9 +10,21 @@ public class HTTPResponse {
     private String contentType;
     private String messageBody;
 
+    /**
+     * Returns the HTTPResponse as a String.
+     *
+     * @return
+     */
     public String getHttpResponse() {
-        //TODO getHTTPResponse as String
-        return null;
+        return String.format("%s %d %s\r\n" +
+                        "Content-type: %s\r\n" +
+                        "Content-length: %d\r\n" +
+                        "\r\n\r\n" +
+                        "%s",
+                httpVersion, statusCode, statusReasonPhrase,
+                contentType,
+                messageBody.length(),
+                messageBody);
     }
 
     public int getStatusCode() {
