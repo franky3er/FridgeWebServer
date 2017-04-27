@@ -1,10 +1,13 @@
-package vs.fridgewebserver.http;
+package vs.fridgewebserver.http.handler;
 
 import vs.fridgewebserver.http.exception.HTTPBadRequestException;
 import vs.fridgewebserver.http.exception.HTTPMethodNotImplementedException;
 import vs.fridgewebserver.http.exception.HTTPRequestException;
+import vs.fridgewebserver.http.handler.option.HandlerOption;
+import vs.fridgewebserver.http.handler.option.HandlerOptionFactory;
 import vs.fridgewebserver.http.request.HTTPRequest;
 import vs.fridgewebserver.http.response.HTTPResponse;
+import vs.products.iohandler.ProductIOHandler;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,9 +20,11 @@ import java.util.concurrent.BlockingQueue;
  */
 public class HTTPClientHandler extends Thread {
     private BlockingQueue<Socket> clients;
+    private ProductIOHandler productIOHandler;
 
-    public HTTPClientHandler(BlockingQueue<Socket> clients) {
+    public HTTPClientHandler(BlockingQueue<Socket> clients, ProductIOHandler productIOHandler) {
         this.clients = clients;
+        this.productIOHandler = productIOHandler;
     }
 
     @Override
@@ -49,6 +54,13 @@ public class HTTPClientHandler extends Thread {
             System.out.println(String.format("INFO : %s [%s] parse request of client [%s]", this.getClass().getSimpleName(), getId(), client));
             httpRequest.parseRequest(in);
             in.close();
+            String handlerOptionName = httpRequest.getParams().get("show");
+            if(handlerOptionName == null || handlerOptionName.isEmpty()) {
+                throw new HTTPBadRequestException("Invalid Request : Parameter 'show' missing");
+            }
+            HandlerOption handlerOption = HandlerOptionFactory.build(handlerOptionName, this.productIOHandler);
+            HTTPResponse httpResponse = handlerOption.handle(httpRequest);
+            sendHTTPRespond(client, httpResponse);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (HTTPRequestException e) {

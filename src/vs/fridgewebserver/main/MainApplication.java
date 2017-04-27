@@ -1,7 +1,9 @@
 package vs.fridgewebserver.main;
 
-import vs.fridgewebserver.http.HTTPClientHandler;
+import vs.fridgewebserver.http.handler.HTTPClientHandler;
 import vs.fridgewebserver.http.HTTPServer;
+import vs.products.iohandler.ProductIOHandler;
+import vs.products.iohandler.database.sqlite.ProductSQLiteHandler;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -15,10 +17,12 @@ public class MainApplication {
     private static List<HTTPClientHandler> workers;
     private static HTTPServer boss;
     private static BlockingQueue<Socket> clients = new ArrayBlockingQueue<Socket>(1024);
-    ;
+    private static ProductIOHandler productIOHandler;
 
     private static int numberOfWorkers;
     private static int port;
+    private static String SQLiteFileSource;
+    private static String SQLiteDriver;
 
     public static void main(String[] args) {
         try {
@@ -35,6 +39,8 @@ public class MainApplication {
     private static void loadConfig() {
         port = 8081;
         numberOfWorkers = 4;
+        SQLiteFileSource = "";
+        SQLiteDriver = "";
     }
 
     private static void run() {
@@ -45,8 +51,13 @@ public class MainApplication {
 
     private static void initialize() throws IOException {
         System.out.println("INFO : Initializing");
+        initializeProductIOHandler();
         initializeWorkers();
         initializeBoss();
+    }
+
+    private static void initializeProductIOHandler() {
+        productIOHandler = new ProductSQLiteHandler(SQLiteDriver, SQLiteFileSource);
     }
 
     private static void initializeBoss() throws IOException {
@@ -56,7 +67,7 @@ public class MainApplication {
     private static void initializeWorkers() {
         workers = new ArrayList<>();
         for (int i = 0; i < numberOfWorkers; i++) {
-            workers.add(new HTTPClientHandler(clients));
+            workers.add(new HTTPClientHandler(clients, productIOHandler));
         }
     }
 
