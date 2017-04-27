@@ -7,7 +7,7 @@ import vs.fridgewebserver.http.request.HTTPRequestMethod;
 /**
  * Created by franky3er on 27.04.17.
  */
-public class HTTPRequestParserPOST implements HTTPRequestParser {
+public class HTTPRequestParserPOST extends HTTPRequestParser {
     @Override
     public void parse(HTTPRequest httpRequest) throws HTTPMethodNotImplementedException {
         throw new HTTPMethodNotImplementedException(HTTPRequestMethod.POST);

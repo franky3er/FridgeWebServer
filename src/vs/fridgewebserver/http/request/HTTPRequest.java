@@ -17,11 +17,13 @@ import java.util.Map;
  * Created by franky3er on 25.04.17.
  */
 public class HTTPRequest {
+    private List<String> httpRequest;
     private HTTPRequestMethod method;
     private Map<String, String> params;
     private String version;
     private String URI;
     private String host;
+    private String userAgent;
 
     public HTTPRequest() {
         params = new HashMap<>();
@@ -46,9 +48,9 @@ public class HTTPRequest {
         if (httpRequest.isEmpty()) {
             throw new HTTPBadRequestException("Empty Request");
         }
-        parseRequestLine(httpRequest.get(0));
-        httpRequest.remove(0);
-        HTTPRequestParser requestParser = HTTPRequestParserFactory.build(getMethod());
+        this.httpRequest = httpRequest;
+        parseRequestLine(this.getHttpRequest().get(0));
+        HTTPRequestParser requestParser = HTTPRequestParserFactory.build(this.method);
         requestParser.parse(this);
     }
 
@@ -109,5 +111,17 @@ public class HTTPRequest {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public List<String> getHttpRequest() {
+        return httpRequest;
+    }
+
+    public String getUserAgent() {
+        return userAgent;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
 }
