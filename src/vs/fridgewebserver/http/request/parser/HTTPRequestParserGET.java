@@ -15,18 +15,22 @@ public class HTTPRequestParserGET extends HTTPRequestParser {
         extractParams();
     }
 
-    private void extractParams() throws HTTPBadRequestException {
+    private void extractParams() throws HTTPRequestException {
         String[] uriElements = this.httpRequest.getURI().split("\\?"); //We are only looking for params
         //TODO implement...
         if (uriElements.length == 2) {
             String[] params = uriElements[1].split("&");
             for (String param : params) {
-                String[] paramPair = param.split("=");
-                if (paramPair.length != 2) {
-                    throw new HTTPBadRequestException("Invalid Parameter");
-                }
-                this.httpRequest.getParams().put(paramPair[0], paramPair[1]);
+                extractParam(param);
             }
         }
+    }
+
+    private void extractParam(String param) throws HTTPRequestException {
+        String[] paramPair = param.split("=");
+        if (paramPair.length != 2) {
+            throw new HTTPBadRequestException("Invalid Parameter");
+        }
+        this.httpRequest.getParams().put(paramPair[0], paramPair[1]);
     }
 }
