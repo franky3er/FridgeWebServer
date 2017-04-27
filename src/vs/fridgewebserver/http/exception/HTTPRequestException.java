@@ -43,7 +43,7 @@ public abstract class HTTPRequestException extends Exception {
     }
 
     private String getHTMLFooter() {
-        return "</body>\n" +
+        return "\n</body>\n" +
                 "</html>";
     }
 
