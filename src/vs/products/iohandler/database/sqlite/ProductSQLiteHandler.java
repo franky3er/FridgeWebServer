@@ -24,14 +24,14 @@ public class ProductSQLiteHandler extends ProductDatabaseHandler {
         super(driver);
         this.dbFileSource = dbFileSource;
         this.connect();
-        if( this.isConnected() ){
+        if (this.isConnected()) {
             this.createTablesIfNotExist();
         }
     }
 
     @Override
     public void write(ScannedProduct scannedProduct) {
-        if( !this.isConnected() ){
+        if (!this.isConnected()) {
             System.err.println("ERROR : Can't insert scanned product. Not connected to DB");
             return;
         }
@@ -56,7 +56,7 @@ public class ProductSQLiteHandler extends ProductDatabaseHandler {
             System.out.println(String.format("INFO : ExecuteQuery: %s", statement));
             Statement statement1 = super.connection.createStatement();
             ResultSet resultSet = statement1.executeQuery(statement);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 scannedProducts.add(ScannedProductFactory.build(resultSet));
             }
         } catch (SQLException e) {

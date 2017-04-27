@@ -5,7 +5,7 @@ package vs.products;
  */
 public class HumanReadableScannedProduct extends ScannedProduct {
 
-    public HumanReadableScannedProduct (ScannedProduct scannedProduct) {
+    public HumanReadableScannedProduct(ScannedProduct scannedProduct) {
         super(scannedProduct.getProduct());
         super.setTimeStamp(scannedProduct.getTimeStamp());
     }

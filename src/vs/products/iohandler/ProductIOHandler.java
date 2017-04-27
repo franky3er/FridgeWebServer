@@ -11,12 +11,14 @@ import java.util.List;
 public interface ProductIOHandler {
     /**
      * Writes the given ScannedProduct into the concrete persistent object.
+     *
      * @param scannedProduct
      */
     void write(ScannedProduct scannedProduct);
 
     /**
      * Reads a list of ScannedProduct's from a concrete persistent object.
+     *
      * @param statement
      * @return List<ScannedProduct>
      */
