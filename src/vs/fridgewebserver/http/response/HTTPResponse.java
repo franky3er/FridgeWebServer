@@ -11,8 +11,15 @@ public class HTTPResponse {
     private String messageBody;
 
     public String getHttpResponse() {
-        //TODO getHTTPResponse as String
-        return null;
+        return String.format("%s %d %s\r\n" +
+                        "Content-type: %s\r\n" +
+                        "Content-length: %d\r\n" +
+                        "\r\n\r\n" +
+                        "%s",
+                httpVersion, statusCode, statusReasonPhrase,
+                contentType,
+                messageBody.length(),
+                messageBody);
     }
 
     public int getStatusCode() {
