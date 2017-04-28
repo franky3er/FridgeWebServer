@@ -53,14 +53,14 @@ public class HTTPClientHandler extends Thread {
             HTTPRequest httpRequest = new HTTPRequest();
             System.out.println(String.format("INFO : %s [%s] parse request of client [%s]", this.getClass().getSimpleName(), getId(), client));
             httpRequest.parseRequest(in);
-            in.close();
             String handlerOptionName = httpRequest.getParams().get("show");
-            if(handlerOptionName == null || handlerOptionName.isEmpty()) {
+            if (handlerOptionName == null || handlerOptionName.isEmpty()) {
                 throw new HTTPBadRequestException("Invalid Request : Parameter 'show' missing");
             }
             HandlerOption handlerOption = HandlerOptionFactory.build(handlerOptionName, this.productIOHandler);
             HTTPResponse httpResponse = handlerOption.handle(httpRequest);
             sendHTTPRespond(client, httpResponse);
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (HTTPRequestException e) {
