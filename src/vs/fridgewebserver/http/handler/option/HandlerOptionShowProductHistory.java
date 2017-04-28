@@ -53,12 +53,13 @@ public class HandlerOptionShowProductHistory implements HandlerOption {
     }
 
     private String getProductHistoryInHTML(List<ScannedProduct> scannedProducts) {
+        String html = "\n<h3>Product History: </h3>\n";
         if (scannedProducts.isEmpty()) {
-            return "\n<h3>Product History: </h3>\n" +
+            return html +
                     "\t<p>No Product found with this name.</p>\n";
         }
 
-        String html = "<table>\n";
+        html += "<table border=\"1\">\n";
         html += "\t<tr>\n";
         html += "\t\t<th>Time Stamp</th>\n";
         html += "\t\t<th>Product</th>\n";
