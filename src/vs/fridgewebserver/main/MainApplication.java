@@ -21,8 +21,8 @@ public class MainApplication {
 
     private static int numberOfWorkers;
     private static int port;
-    private static String SQLiteFileSource;
-    private static String SQLiteDriver;
+    private static String sqLiteFileSource;
+    private static String sqLiteDriver;
 
     public static void main(String[] args) {
         try {
@@ -39,8 +39,8 @@ public class MainApplication {
     private static void loadConfig() {
         port = 8081;
         numberOfWorkers = 4;
-        SQLiteFileSource = "";
-        SQLiteDriver = "";
+        sqLiteFileSource = "";
+        sqLiteDriver = "";
     }
 
     private static void run() {
@@ -57,7 +57,7 @@ public class MainApplication {
     }
 
     private static void initializeProductIOHandler() {
-        productIOHandler = new ProductSQLiteHandler(SQLiteDriver, SQLiteFileSource);
+        productIOHandler = new ProductSQLiteHandler(sqLiteDriver, sqLiteFileSource);
     }
 
     private static void initializeBoss() throws IOException {
