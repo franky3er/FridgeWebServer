@@ -25,7 +25,7 @@ public class MainApplication {
     private final static String FRIDGEWEBSERVER_PRODUCTSQLITE_FILESOURCE = "FridgeWebServer.ProductSQLiteHandler.FileSource";
     private final static String FRIDGEWEBSERVER_PRODUCTSQLITE_DRIVER = "FridgeWebServer.ProductSQLiteHandler.Driver";
     private final static String FRIDGEWEBSERVER_WORKERS_NUMBEROF = "FridgeWebServer.Workers.NumberOf";
-    private final static String FRIDGEWEBSERVER_LISTENING_PORT = "FridgeWebServer.Listening.Porrt";
+    private final static String FRIDGEWEBSERVER_LISTENING_PORT = "FridgeWebServer.Listening.Port";
 
     private static List<HTTPClientHandler> workers;
     private static HTTPServer boss;
