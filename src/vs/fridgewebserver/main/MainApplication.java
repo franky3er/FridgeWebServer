@@ -6,10 +6,13 @@ import vs.products.iohandler.ProductIOHandler;
 import vs.products.iohandler.database.sqlite.ProductSQLiteHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -46,11 +49,13 @@ public class MainApplication {
         }
     }
 
-    private static void loadConfig() {
-        port = 8081;
-        numberOfWorkers = 4;
-        sqLiteFileSource = "";
-        sqLiteDriver = "";
+    private static void loadConfig() throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileReader(PROJECT_CONFIG));
+        port = Integer.parseInt(properties.getProperty(FRIDGEWEBSERVER_LISTENING_PORT));
+        numberOfWorkers = Integer.parseInt(properties.getProperty(FRIDGEWEBSERVER_WORKERS_NUMBEROF));
+        sqLiteFileSource = properties.getProperty(FRIDGEWEBSERVER_PRODUCTSQLITE_FILESOURCE);
+        sqLiteDriver = properties.getProperty(FRIDGEWEBSERVER_PRODUCTSQLITE_DRIVER);
     }
 
     private static void run() {
