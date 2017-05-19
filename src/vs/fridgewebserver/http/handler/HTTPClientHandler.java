@@ -20,11 +20,11 @@ import java.util.concurrent.BlockingQueue;
  */
 public class HTTPClientHandler extends Thread {
     private BlockingQueue<Socket> clients;
-    private ProductIOHandler productIOHandler;
+    private HandlerOptionFactory handlerOptionFactory;
 
-    public HTTPClientHandler(BlockingQueue<Socket> clients, ProductIOHandler productIOHandler) {
+    public HTTPClientHandler(BlockingQueue<Socket> clients, HandlerOptionFactory handlerOptionFactory) {
         this.clients = clients;
-        this.productIOHandler = productIOHandler;
+        this.handlerOptionFactory = handlerOptionFactory;
     }
 
     @Override
@@ -53,11 +53,11 @@ public class HTTPClientHandler extends Thread {
             HTTPRequest httpRequest = new HTTPRequest();
             System.out.println(String.format("INFO : %s [%s] parse request of client [%s]", this.getClass().getSimpleName(), getId(), client));
             httpRequest.parseRequest(in);
-            String handlerOptionName = httpRequest.getParams().get("show");
+            String handlerOptionName = httpRequest.getParams().get("option");
             if (handlerOptionName == null || handlerOptionName.isEmpty()) {
-                throw new HTTPBadRequestException("Invalid Request : Parameter 'show' missing");
+                throw new HTTPBadRequestException("Invalid Request : Parameter 'option' missing");
             }
-            HandlerOption handlerOption = HandlerOptionFactory.build(handlerOptionName, this.productIOHandler);
+            HandlerOption handlerOption = handlerOptionFactory.build(handlerOptionName);
             HTTPResponse httpResponse = handlerOption.handle(httpRequest);
             sendHTTPRespond(client, httpResponse);
             in.close();
