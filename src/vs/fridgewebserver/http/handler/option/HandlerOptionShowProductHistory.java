@@ -27,7 +27,7 @@ public class HandlerOptionShowProductHistory implements HandlerOption {
             throw new HTTPBadRequestException("Invalid Parameter - must contain product");
         }
         ProductHistoryHandler productHistoryHandler = new ProductHistoryHandler(this.productIOHandler);
-        String html = getProductHistoryInHTML(productHistoryHandler.getProductHistory(productName));
+        String html = getProductHistoryInHTML(productHistoryHandler.getProductHistoryASC(productName));
 
         HTTPResponse httpResponse = new HTTPResponse();
         httpResponse.setHttpVersion("HTTP/1.1");
